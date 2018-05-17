@@ -43,6 +43,9 @@
 .boxes .input-box:checked::before, .run:not(:checked) + .boxes .output-box:checked::before {
     content: "1";
 }
+.run:not(:checked) + .boxes .intermediate-box {
+    display: none;
+}
 .run {
     position: fixed;
     -webkit-appearance: none;
@@ -94,6 +97,7 @@
 }
 .overlay .padding {
     flex-grow: 1;
+    color: #FFFFFF;
 }
 .overlay .message {
     font-size: 3em;
