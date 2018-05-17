@@ -1,0 +1,20 @@
+input in 16
+output out 16
+output overflow 1
+pin carry 14
+not in=in0 out=out0
+half-adder a=in1 b=in0 sum=out1 carry=carry0
+half-adder a=in2 b=carry0 sum=out2 carry=carry1
+half-adder a=in3 b=carry1 sum=out3 carry=carry2
+half-adder a=in4 b=carry2 sum=out4 carry=carry3
+half-adder a=in5 b=carry3 sum=out5 carry=carry4
+half-adder a=in6 b=carry4 sum=out6 carry=carry5
+half-adder a=in7 b=carry5 sum=out7 carry=carry6
+half-adder a=in8 b=carry6 sum=out8 carry=carry7
+half-adder a=in9 b=carry7 sum=out9 carry=carry8
+half-adder a=in10 b=carry8 sum=out10 carry=carry9
+half-adder a=in11 b=carry9 sum=out11 carry=carry10
+half-adder a=in12 b=carry10 sum=out12 carry=carry11
+half-adder a=in13 b=carry11 sum=out13 carry=carry12
+half-adder a=in14 b=carry12 sum=out14 carry=carry13
+half-adder a=in15 b=carry13 sum=out15 carry=overflow

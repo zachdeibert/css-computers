@@ -1,0 +1,9 @@
+input a 16
+input b 16
+output diff 16
+pin inv 16
+pin res 16
+pin ign 2
+not16 in=b out=inv
+add16 a=a b=inv sum=res overflow=ign0
+inc16 in=res out=diff overflow=ign1
