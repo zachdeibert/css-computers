@@ -176,7 +176,7 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
             foreach (Pin pin in model.Pins.Where(p => p.Type == PinType.Input)) {
                 pin.Offset = offset++;
             }
-            HashSet<Pin> unmapped = model.Pins.Where(p => p.Type != PinType.Input).ToHashSet();
+            HashSet<Pin> unmapped = model.Pins.Where(p => p.Type == PinType.Intermediate).ToHashSet();
             while (unmapped.Count > 0) {
                 Pin[] toMap = unmapped.Where(p => model.TruthTables.Where(t => t.Output == p).All(t => t.Inputs.All(p2 => !unmapped.Contains(p2)))).ToArray();
                 foreach (Pin pin in toMap) {
@@ -187,6 +187,9 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                     Console.Error.WriteLine("Unable to map pins without recursion.");
                     return model;
                 }
+            }
+            foreach (Pin pin in model.Pins.Where(p => p.Type == PinType.Output)) {
+                pin.Offset = offset++;
             }
             return model;
         }
