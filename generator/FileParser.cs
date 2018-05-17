@@ -113,11 +113,11 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                                 FirstOfType = true
                             });
                         } else {
-                            model.Pins.AddRange(Enumerable.Range(0, width).Select(i => new Pin {
+                            model.Pins.AddRange(Enumerable.Range(1, width).Select(i => new Pin {
                                 Type = type,
-                                Name = string.Format("{0}{1}", line.Tokens[1], i),
+                                Name = string.Format("{0}{1}", line.Tokens[1], width - i),
                                 NameOfType = line.Tokens[1],
-                                FirstOfType = i == 0
+                                FirstOfType = i == 1
                             }));
                         }
                         break;
