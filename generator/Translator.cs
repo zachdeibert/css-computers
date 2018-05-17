@@ -68,13 +68,13 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                 foreach (bool[] key in table.Table.Keys) {
                     bool value = table.Table[key];
                     int i = 0;
-                    css.Append(".run:checked + .boxes ");
+                    css.Append(".run:checked ~ .boxes ");
                     foreach (Pin pin in table.Inputs.OrderBy(p => p.Offset)) {
                         AddressPin(model, css, pin, key[i++]);
                         css.Append(" ~ ");
                     }
                     AddressPin(model, css, table.Output, value);
-                    css.Append(", .run:checked + .boxes ");
+                    css.Append(", .run:checked ~ .boxes ");
                     i = 0;
                     foreach (Pin pin in table.Inputs.OrderBy(p => p.Offset)) {
                         AddressPin(model, css, pin, key[i++]);
@@ -85,13 +85,13 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                     css.Append(ValidCss);
                     css.AppendLine(" }");
                     i = 0;
-                    css.Append(".run:checked + .boxes ");
+                    css.Append(".run:checked ~ .boxes ");
                     foreach (Pin pin in table.Inputs.OrderBy(p => p.Offset)) {
                         AddressPin(model, css, pin, key[i++]);
                         css.Append(" ~ ");
                     }
                     AddressPin(model, css, table.Output, !value);
-                    css.Append(", .run:checked + .boxes ");
+                    css.Append(", .run:checked ~ .boxes ");
                     i = 0;
                     foreach (Pin pin in table.Inputs.OrderBy(p => p.Offset)) {
                         AddressPin(model, css, pin, key[i++]);

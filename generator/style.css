@@ -23,13 +23,13 @@
     text-align: center;
     font-style: italic;
 }
-.run:checked + .boxes label {
+.run:checked ~ .boxes label {
     display: none;
 }
 .boxes label:not(:first-of-type) {
     border-top: solid 1px #7F7F7F;
 }
-.run:not(:checked) + .boxes {
+.run:not(:checked) ~ .boxes {
     border: solid 1px #7F7F7F;
 }
 .boxes label + input, .boxes .input-box + .intermediate-box, .boxes .input-box + .intermediate-box, .boxes .input-box + .output-box {
@@ -50,32 +50,48 @@
 .boxes .input-box + svg + div {
     z-index: -1;
 }
-.boxes .intermediate-box + svg + div, .run:checked .boxes input + svg + div {
+.boxes .intermediate-box + svg + div, .run:checked ~ .boxes input + svg + div {
     display: none;
 }
-.boxes .input-box:not(:checked) + svg + div::before, .run:not(:checked) + .boxes .output-box:not(:checked) + svg + div::before {
+.boxes .input-box:not(:checked) + svg + div::before, .run:not(:checked) ~ .boxes .output-box:not(:checked) + svg + div::before {
     content: "0";
     color: #000000;
 }
-.boxes .input-box:checked + svg + div::before, .run:not(:checked) + .boxes .output-box:checked + svg + div::before {
+.boxes .input-box:checked + svg + div::before, .run:not(:checked) ~ .boxes .output-box:checked + svg + div::before {
     content: "1";
     color: #000000;
 }
-.run:checked + .boxes input {
+.run:checked ~ .boxes input {
     position: fixed;
     left: 0;
     top: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 2;
+    z-index: 3;
 }
-.run:not(:checked) + .boxes .intermediate-box {
+.run:not(:checked) ~ .boxes .intermediate-box {
+    display: none;
+}
+.run-btn {
+    position: fixed;
+    z-index: 1;
+    right: 10px;
+    bottom: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    line-height: 50px;
+    text-align: center;
+    background-color: #00AF3F;
+    color: #FFFFFF;
+}
+.run:checked + .run-btn {
     display: none;
 }
 .run {
     position: fixed;
-    -webkit-appearance: none;
-    z-index: 1;
+    z-index: 2;
+    opacity: 0;
 }
 .run:checked {
     left: 0;
@@ -84,11 +100,8 @@
     height: 100vh;
     margin: 0;
 }
-.run:checked + .boxes input {
+.run:checked ~ .boxes input {
     margin: 0;
-}
-.run:checked::before {
-    content: "";
 }
 .run:not(:checked) {
     right: 10px;
@@ -100,11 +113,7 @@
     text-align: center;
     background-color: #00AF3F;
 }
-.run:not(:checked)::before {
-    content: "▶";
-    color: #FFFFFF;
-}
-.run:checked + .boxes .input-box {
+.run:checked ~ .boxes .input-box {
     display: none;
 }
 .overlay {
@@ -126,7 +135,7 @@
     color: #FFFFFF;
 }
 .overlay .message {
-    font-size: 3em;
+    font-size: 2.8em;
     text-align: center;
 }
 svg {
