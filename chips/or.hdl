@@ -1,0 +1,4 @@
+input a 1
+input b 1
+output out 1
+truth a,b out 0 1 1 1
