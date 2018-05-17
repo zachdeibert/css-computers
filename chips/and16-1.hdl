@@ -1,0 +1,4 @@
+input a 16
+input b 1
+output out 16
+and16 a=a b0=b b1=b b2=b b3=b b4=b b5=b b6=b b7=b b8=b b9=b b10=b b11=b b12=b b13=b b14=b b15=b out=out

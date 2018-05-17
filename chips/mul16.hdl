@@ -1,0 +1,101 @@
+input a 16
+input b 16
+output product 16
+pin ign 30
+# These pins have the value of 'a' multiplied by a constant
+pin a2_ 16
+pin a4_ 16
+pin a8_ 16
+pin a16_ 16
+pin a32_ 16
+pin a64_ 16
+pin a128_ 16
+pin a256_ 16
+pin a512_ 16
+pin a1024_ 16
+pin a2048_ 16
+pin a4096_ 16
+pin a8192_ 16
+pin a16384_ 16
+pin a32768_ 16
+# These pins ahve the value of 'a' multiplied by that constant multiplexed with a bit from 'b'
+pin bit0_ 16
+pin bit1_ 16
+pin bit2_ 16
+pin bit3_ 16
+pin bit4_ 16
+pin bit5_ 16
+pin bit6_ 16
+pin bit7_ 16
+pin bit8_ 16
+pin bit9_ 16
+pin bit10_ 16
+pin bit11_ 16
+pin bit12_ 16
+pin bit13_ 16
+pin bit14_ 16
+pin bit15_ 16
+# These pins have the sums of the last set of pins
+pin sum0-1_ 16
+pin sum2-3_ 16
+pin sum4-5_ 16
+pin sum6-7_ 16
+pin sum8-9_ 16
+pin sum10-11_ 16
+pin sum12-13_ 16
+pin sum14-15_ 16
+pin sum0-3_ 16
+pin sum4-7_ 16
+pin sum8-11_ 16
+pin sum12-15_ 16
+pin sum0-7_ 16
+pin sum8-15_ 16
+# Add 'a' to itself a bunch
+add16 a=a b=a sum=a2_ overflow=ign0
+add16 a=a2_ b=a2_ sum=a4_ overflow=ign1
+add16 a=a4_ b=a4_ sum=a8_ overflow=ign2
+add16 a=a8_ b=a8_ sum=a16_ overflow=ign3
+add16 a=a16_ b=a16_ sum=a32_ overflow=ign4
+add16 a=a32_ b=a32_ sum=a64_ overflow=ign5
+add16 a=a64_ b=a64_ sum=a128_ overflow=ign6
+add16 a=a128_ b=a128_ sum=a256_ overflow=ign7
+add16 a=a256_ b=a256_ sum=a512_ overflow=ign8
+add16 a=a512_ b=a512_ sum=a1024_ overflow=ign9
+add16 a=a1024_ b=a1024_ sum=a2048_ overflow=ign10
+add16 a=a2048_ b=a2048_ sum=a4096_ overflow=ign11
+add16 a=a4096_ b=a4096_ sum=a8192_ overflow=ign12
+add16 a=a8192_ b=a8192_ sum=a16384_ overflow=ign13
+add16 a=a16384_ b=a16384_ sum=a32768_ overflow=ign14
+# Multiplex the bits
+and16-1 a=a b=b0 out=bit0_
+and16-1 a=a2_ b=b1 out=bit1_
+and16-1 a=a4_ b=b2 out=bit2_
+and16-1 a=a8_ b=b3 out=bit3_
+and16-1 a=a16_ b=b4 out=bit4_
+and16-1 a=a32_ b=b5 out=bit5_
+and16-1 a=a64_ b=b6 out=bit6_
+and16-1 a=a128_ b=b7 out=bit7_
+and16-1 a=a256_ b=b8 out=bit8_
+and16-1 a=a512_ b=b9 out=bit9_
+and16-1 a=a1024_ b=b10 out=bit10_
+and16-1 a=a2048_ b=b11 out=bit11_
+and16-1 a=a4096_ b=b12 out=bit12_
+and16-1 a=a8192_ b=b13 out=bit13_
+and16-1 a=a16384_ b=b14 out=bit14_
+and16-1 a=a32768_ b=b15 out=bit15_
+# Sum it all together
+add16 a=bit0_ b=bit1_ sum=sum0-1_ overflow=ign15
+add16 a=bit2_ b=bit3_ sum=sum2-3_ overflow=ign16
+add16 a=bit4_ b=bit5_ sum=sum4-5_ overflow=ign17
+add16 a=bit6_ b=bit7_ sum=sum6-7_ overflow=ign18
+add16 a=bit8_ b=bit9_ sum=sum8-9_ overflow=ign19
+add16 a=bit10_ b=bit11_ sum=sum10-11_ overflow=ign20
+add16 a=bit12_ b=bit13_ sum=sum12-13_ overflow=ign21
+add16 a=bit14_ b=bit15_ sum=sum14-15_ overflow=ign22
+add16 a=sum0-1_ b=sum2-3_ sum=sum0-3_ overflow=ign23
+add16 a=sum4-5_ b=sum6-7_ sum=sum4-7_ overflow=ign24
+add16 a=sum8-9_ b=sum10-11_ sum=sum8-11_ overflow=ign25
+add16 a=sum12-13_ b=sum14-15_ sum=sum12-15_ overflow=ign26
+add16 a=sum0-3_ b=sum4-7_ sum=sum0-7_ overflow=ign27
+add16 a=sum8-11_ b=sum12-15_ sum=sum8-15_ overflow=ign28
+add16 a=sum0-7_ b=sum8-15_ sum=product overflow=ign29
