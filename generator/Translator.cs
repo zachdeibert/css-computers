@@ -9,6 +9,7 @@ using System.Xml;
 namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
     class Translator {
         XmlDocument HtmlTemplate;
+        XmlDocument CheckboxTemplate;
         string CssHeader;
         string ValidCss;
         string InvalidCss;
@@ -23,15 +24,17 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
             GenerateTitle(model, html);
             XmlElement div = html.GetElementsByTagName("div").OfType<XmlElement>().First(e => e.GetAttribute("class") == "boxes");
             foreach (Pin pin in model.Pins.OrderBy(p => p.Offset)) {
-                XmlElement input = html.CreateElement("input");
-                input.SetAttribute("type", "checkbox");
+                XmlElement template = (XmlElement) CheckboxTemplate.DocumentElement.CloneNode(true);
+                XmlElement input = (XmlElement) template.GetElementsByTagName("input").Item(0);
+                XmlElement label = (XmlElement) template.GetElementsByTagName("label").Item(0);
                 if (pin.Type == PinType.Intermediate) {
                     input.SetAttribute("class", "intermediate-box");
+                    template.RemoveChild(label);
                 } else {
                     if (pin.FirstOfType) {
-                        XmlElement label = html.CreateElement("label");
-                        label.InnerText = pin.NameOfType;
-                        div.AppendChild(label);
+                        label.InnerText = string.Format(label.InnerText, pin.NameOfType);
+                    } else {
+                        template.RemoveChild(label);
                     }
                     if (pin.Type == PinType.Input) {
                         input.SetAttribute("class", "input-box");
@@ -39,7 +42,9 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                         input.SetAttribute("class", "output-box");
                     }
                 }
-                div.AppendChild(input);
+                foreach (XmlNode node in template.ChildNodes) {
+                    div.AppendChild(html.ImportNode(node, true));
+                }
             }
             StringBuilder str = new StringBuilder();
             str.AppendLine("<!DOCTYPE html>");
@@ -69,7 +74,14 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                         css.Append(" ~ ");
                     }
                     AddressPin(model, css, table.Output, value);
-                    css.Append(" { ");
+                    css.Append(", .run:checked + .boxes ");
+                    i = 0;
+                    foreach (Pin pin in table.Inputs.OrderBy(p => p.Offset)) {
+                        AddressPin(model, css, pin, key[i++]);
+                        css.Append(" ~ ");
+                    }
+                    AddressPin(model, css, table.Output, value);
+                    css.Append(" + svg {");
                     css.Append(ValidCss);
                     css.AppendLine(" }");
                     i = 0;
@@ -79,7 +91,14 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                         css.Append(" ~ ");
                     }
                     AddressPin(model, css, table.Output, !value);
-                    css.Append(" { ");
+                    css.Append(", .run:checked + .boxes ");
+                    i = 0;
+                    foreach (Pin pin in table.Inputs.OrderBy(p => p.Offset)) {
+                        AddressPin(model, css, pin, key[i++]);
+                        css.Append(" ~ ");
+                    }
+                    AddressPin(model, css, table.Output, !value);
+                    css.Append(" + svg {");
                     css.Append(InvalidCss);
                     css.AppendLine(" }");
                 }
@@ -92,6 +111,10 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
             HtmlTemplate = new XmlDocument();
             using (Stream stream = asm.GetManifestResourceStream("generator.index.html")) {
                 HtmlTemplate.Load(stream);
+            }
+            CheckboxTemplate = new XmlDocument();
+            using (Stream stream = asm.GetManifestResourceStream("generator.checkbox.html")) {
+                CheckboxTemplate.Load(stream);
             }
             using (Stream stream = asm.GetManifestResourceStream("generator.style.css")) {
                 using (TextReader reader = new StreamReader(stream)) {

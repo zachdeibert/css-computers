@@ -4,6 +4,7 @@
         <TargetFramework>netcoreapp2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
+        <EmbeddedResource Include="checkbox.html" />
         <EmbeddedResource Include="index.html" />
         <EmbeddedResource Include="invalid.css" />
         <EmbeddedResource Include="style.css" />

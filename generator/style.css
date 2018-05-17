@@ -111,3 +111,70 @@
     font-size: 3em;
     text-align: center;
 }
+svg {
+    display: none;
+    position: fixed;
+    left: 50vw;
+    top: 50vh;
+    margin-left: -250px;
+    margin-top: -250px;
+    transform-origin: center;
+}
+circle {
+    stroke: #000000;
+    stroke-width: 20px;
+    fill: none;
+    stroke-dasharray: 100px 10000px;
+    transform-origin: center;
+}
+svg:nth-of-type(42n+0), svg:nth-of-type(42n+1), svg:nth-of-type(42n+2), svg:nth-of-type(42n+3), svg:nth-of-type(42n+4), svg:nth-of-type(42n+5), svg:nth-of-type(42n+6), svg:nth-of-type(42n+7), svg:nth-of-type(42n+8), svg:nth-of-type(42n+9), svg:nth-of-type(42n+10), svg:nth-of-type(42n+11), svg:nth-of-type(42n+12), svg:nth-of-type(42n+13) {
+    transform: rotate(0deg);
+}
+svg:nth-of-type(42n+14), svg:nth-of-type(42n+15), svg:nth-of-type(42n+16), svg:nth-of-type(42n+17), svg:nth-of-type(42n+18), svg:nth-of-type(42n+19), svg:nth-of-type(42n+20), svg:nth-of-type(42n+21), svg:nth-of-type(42n+22), svg:nth-of-type(42n+23), svg:nth-of-type(42n+24), svg:nth-of-type(42n+25), svg:nth-of-type(42n+26), svg:nth-of-type(42n+27) {
+    transform: rotate(8.57deg) scale(1.1);
+}
+svg:nth-of-type(42n+28), svg:nth-of-type(42n+29), svg:nth-of-type(42n+30), svg:nth-of-type(42n+31), svg:nth-of-type(42n+32), svg:nth-of-type(42n+33), svg:nth-of-type(42n+34), svg:nth-of-type(42n+35), svg:nth-of-type(42n+36), svg:nth-of-type(42n+37), svg:nth-of-type(42n+38), svg:nth-of-type(42n+39), svg:nth-of-type(42n+40), svg:nth-of-type(42n+41) {
+    transform: rotate(17.14deg) scale(0.91);
+}
+svg:nth-of-type(14n+0) circle {
+    transform: rotate(0deg);
+}
+svg:nth-of-type(14n+1) circle {
+    transform: rotate(25.71deg);
+}
+svg:nth-of-type(14n+2) circle {
+    transform: rotate(51.43deg);
+}
+svg:nth-of-type(14n+3) circle {
+    transform: rotate(77.14deg);
+}
+svg:nth-of-type(14n+4) circle {
+    transform: rotate(102.86deg);
+}
+svg:nth-of-type(14n+5) circle {
+    transform: rotate(128.57deg);
+}
+svg:nth-of-type(14n+6) circle {
+    transform: rotate(154.29deg);
+}
+svg:nth-of-type(14n+7) circle {
+    transform: rotate(180deg);
+}
+svg:nth-of-type(14n+8) circle {
+    transform: rotate(205.71deg);
+}
+svg:nth-of-type(14n+9) circle {
+    transform: rotate(231.43deg);
+}
+svg:nth-of-type(14n+10) circle {
+    transform: rotate(257.14deg);
+}
+svg:nth-of-type(14n+11) circle {
+    transform: rotate(282.86deg);
+}
+svg:nth-of-type(14n+12) circle {
+    transform: rotate(308.57deg);
+}
+svg:nth-of-type(14n+13) circle {
+    transform: rotate(334.29deg);
+}
