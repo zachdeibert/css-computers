@@ -3,9 +3,7 @@ input b 1
 input c 1
 output sum 1
 output carry 1
-pin s1 1
-pin c1 1
-pin c2 1
-half-adder a=a b=b sum=s1 carry=c1
-half-adder a=s1 b=c sum=sum carry=c2
-xor a=c1 b=c2 out=carry
+pin tmp 3
+half-adder a=a b=b sum=tmp0 carry=tmp1
+half-adder a=tmp0 b=c sum=sum carry=tmp2
+xor a=tmp1 b=tmp2 out=carry
