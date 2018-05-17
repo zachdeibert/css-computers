@@ -22,10 +22,14 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
         }
 
         string MapPin(string prefix, Dictionary<string, string> mappings, string name) {
+            string suffix = new string(name.Reverse().TakeWhile(c => c >= '0' && c <= '9').Reverse().ToArray());
+            if (suffix.Length > 0) {
+                name = name.Substring(0, name.Length - suffix.Length);
+            }
             if (mappings.ContainsKey(name)) {
-                return mappings[name];
+                return string.Concat(mappings[name], suffix);
             } else {
-                return string.Concat(prefix, name);
+                return string.Concat(prefix, name, suffix);
             }
         }
 
@@ -67,7 +71,7 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                                 Console.Error.WriteLine("Invalid token after chip call ({0}:{1})", line.FileName, line.LineNumber);
                             }
                         }
-                        string newPrefix = string.Format("{0}._inclusion_prefix_{1}", prefix, includedChips++);
+                        string newPrefix = string.Format("{0}._{1}_", prefix, includedChips++);
                         lines.AddRange(ReadFile(line.Tokens[0], newPrefix, newMappings));
                         break;
                 }
@@ -80,6 +84,7 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                 Name = ChipName
             };
             foreach (ReadLine line in ReadFile(ChipName, "", new Dictionary<string, string>())) {
+                Console.WriteLine(string.Join(" ", line.Tokens));
                 switch (line.Tokens[0]) {
                     case "input":
                     case "output":
@@ -185,6 +190,10 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                 }
                 if (toMap.Length == 0) {
                     Console.Error.WriteLine("Unable to map pins without recursion.");
+                    Console.Error.WriteLine("The following pins failed:");
+                    foreach (Pin pin in unmapped) {
+                        Console.Error.WriteLine("    {0}", pin.Name);
+                    }
                     return model;
                 }
             }
