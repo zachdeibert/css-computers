@@ -9,15 +9,17 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
         public bool ShowVersion;
         public string ParseFailureReason;
         public string Input;
+        public string Output;
         public int Port = 8000;
 
         public static void PrintHelp(TextWriter stream) {
-            stream.WriteLine("Usage: {0} [-h|--help] [-v|--version] [-p|--port <port num>] [-a|--address <bind address>] <input file>", Process.GetCurrentProcess().MainModule.FileName);
+            stream.WriteLine("Usage: {0} [-h|--help] [-v|--version] [-p|--port <port num>] [-o|--out <output file>] <input file>", Process.GetCurrentProcess().MainModule.FileName);
             stream.WriteLine();
             stream.WriteLine("Options:");
             stream.WriteLine("    -h, --help     Show this help message");
             stream.WriteLine("    -v, --version  Show the version information");
             stream.WriteLine("    -p, --port     Specify the port to listen on");
+            stream.WriteLine("    -o, --out      Specify the output file and do not start a server");
         }
 
         public static void PrintVersion(TextWriter stream) {
@@ -48,6 +50,14 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
                             } else if (Port <= 0 || Port >= 65536) {
                                 ParseFailureReason = "Port out of range";
                             }
+                        } else {
+                            ParseFailureReason = string.Concat("Expected parameter after '", argEnum.Current, "'");
+                        }
+                        break;
+                    case "-o":
+                    case "--out":
+                        if (argEnum.MoveNext()) {
+                            Output = argEnum.Current;
                         } else {
                             ParseFailureReason = string.Concat("Expected parameter after '", argEnum.Current, "'");
                         }

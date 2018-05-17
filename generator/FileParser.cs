@@ -194,20 +194,27 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
             return model;
         }
 
+        public void Stop() {
+            Thread.Interrupt();
+        }
+
         void Run() {
-            FileSystemWatcher watcher = new FileSystemWatcher(Directory, string.Concat(ChipName, ".hdl"));
-            ComputerModel model = GenerateModel();
-            lock (ModelLock) {
-                CurrentModel = model;
-            }
-            InitialParseSemaphore.Release();
-            while (true) {
-                watcher.WaitForChanged(WatcherChangeTypes.All);
-                Console.WriteLine("Changes detected.  Reparsing file.");
-                model = GenerateModel();
+            try {
+                FileSystemWatcher watcher = new FileSystemWatcher(Directory, string.Concat(ChipName, ".hdl"));
+                ComputerModel model = GenerateModel();
                 lock (ModelLock) {
                     CurrentModel = model;
                 }
+                InitialParseSemaphore.Release();
+                while (true) {
+                    watcher.WaitForChanged(WatcherChangeTypes.All);
+                    Console.WriteLine("Changes detected.  Reparsing file.");
+                    model = GenerateModel();
+                    lock (ModelLock) {
+                        CurrentModel = model;
+                    }
+                }
+            } catch (ThreadInterruptedException) {
             }
         }
 

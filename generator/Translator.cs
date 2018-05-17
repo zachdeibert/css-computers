@@ -18,10 +18,18 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
             XmlElement title = (XmlElement) html.GetElementsByTagName("title").Item(0);
             title.InnerText = string.Format(title.InnerText, model.Name);
         }
+        
+        void ReplaceStylesheet(XmlDocument html, string stylesheet) {
+            XmlElement link = html.GetElementsByTagName("link").OfType<XmlElement>().First(l => l.GetAttribute("rel") == "stylesheet");
+            link.SetAttribute("href", stylesheet);
+        }
 
-        public string GenerateHTML(ComputerModel model) {
+        public string GenerateHTML(ComputerModel model, string stylesheet = null) {
             XmlDocument html = (XmlDocument) HtmlTemplate.CloneNode(true);
             GenerateTitle(model, html);
+            if (stylesheet != null) {
+                ReplaceStylesheet(html, stylesheet);
+            }
             XmlElement div = html.GetElementsByTagName("div").OfType<XmlElement>().First(e => e.GetAttribute("class") == "boxes");
             foreach (Pin pin in model.Pins.OrderBy(p => p.Offset)) {
                 XmlElement template = (XmlElement) CheckboxTemplate.DocumentElement.CloneNode(true);
