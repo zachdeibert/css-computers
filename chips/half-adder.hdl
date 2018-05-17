@@ -1,0 +1,6 @@
+input a 1
+input b 1
+output sum 1
+output carry 1
+xor a=a b=b out=sum
+and a=a b=b out=carry

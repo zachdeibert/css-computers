@@ -1,0 +1,21 @@
+input a 16
+input b 16
+output sum 16
+output overflow 1
+pin carry 15
+half-adder a=a0 b=b0 sum=sum0 carry=carry0
+full-adder a=a1 b=b1 c=carry0 sum=sum1 carry=carry1
+full-adder a=a2 b=b2 c=carry1 sum=sum2 carry=carry2
+full-adder a=a3 b=b3 c=carry2 sum=sum3 carry=carry3
+full-adder a=a4 b=b4 c=carry3 sum=sum4 carry=carry4
+full-adder a=a5 b=b5 c=carry4 sum=sum5 carry=carry5
+full-adder a=a6 b=b6 c=carry5 sum=sum6 carry=carry6
+full-adder a=a7 b=b7 c=carry6 sum=sum7 carry=carry7
+full-adder a=a8 b=b8 c=carry7 sum=sum8 carry=carry8
+full-adder a=a9 b=b9 c=carry8 sum=sum9 carry=carry9
+full-adder a=a10 b=b10 c=carry9 sum=sum10 carry=carry10
+full-adder a=a11 b=b11 c=carry10 sum=sum11 carry=carry11
+full-adder a=a12 b=b12 c=carry11 sum=sum12 carry=carry12
+full-adder a=a13 b=b13 c=carry12 sum=sum13 carry=carry13
+full-adder a=a14 b=b14 c=carry13 sum=sum14 carry=carry14
+full-adder a=a15 b=b15 c=carry14 sum=sum15 carry=overflow
