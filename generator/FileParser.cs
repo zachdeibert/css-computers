@@ -36,7 +36,7 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
             foreach (ReadLine line in File.ReadAllLines(file).Select((s, i) => new ReadLine {
                     Tokens = s.Trim().Split(' '),
                     FileName = file,
-                    LineNumber = i
+                    LineNumber = i + 1
                 }).Where(l => l.Tokens.Length > 0 && !l.Tokens[0].StartsWith("#")).ToList()) {
                 switch (line.Tokens[0]) {
                     case "input":
