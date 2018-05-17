@@ -8,12 +8,10 @@
 .boxes input {
     display: block;
     float: left;
-    -webkit-appearance: none;
     width: 20px;
     height: 20px;
-    line-height: 20px;
     margin: 2px;
-    text-align: center;
+    opacity: 0;
 }
 .boxes label {
     display: block;
@@ -37,11 +35,31 @@
 .boxes label + input, .boxes .input-box + .intermediate-box, .boxes .input-box + .intermediate-box, .boxes .input-box + .output-box {
     clear: left;
 }
-.boxes .input-box:not(:checked)::before, .run:not(:checked) + .boxes .output-box:not(:checked)::before {
-    content: "0";
+.boxes input + svg + div {
+    width: 20px;
+    height: 20px;
+    color: rgba(0, 0, 0, 0);
+    z-index: 1;
+    position: relative;
+    float: left;
+    margin: 2px;
+    margin-left: -22px;
+    text-align: center;
+    line-height: 20px;
 }
-.boxes .input-box:checked::before, .run:not(:checked) + .boxes .output-box:checked::before {
+.boxes .input-box + svg + div {
+    z-index: -1;
+}
+.boxes .intermediate-box + svg + div, .run:checked .boxes input + svg + div {
+    display: none;
+}
+.boxes .input-box:not(:checked) + svg + div::before, .run:not(:checked) + .boxes .output-box:not(:checked) + svg + div::before {
+    content: "0";
+    color: #000000;
+}
+.boxes .input-box:checked + svg + div::before, .run:not(:checked) + .boxes .output-box:checked + svg + div::before {
     content: "1";
+    color: #000000;
 }
 .run:checked + .boxes input {
     position: fixed;
