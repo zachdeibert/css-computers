@@ -22,14 +22,18 @@ namespace Com.GitHub.ZachDeibert.CssComputers.Generator {
         }
 
         string MapPin(string prefix, Dictionary<string, string> mappings, string name) {
-            string suffix = new string(name.Reverse().TakeWhile(c => c >= '0' && c <= '9').Reverse().ToArray());
-            if (suffix.Length > 0) {
-                name = name.Substring(0, name.Length - suffix.Length);
-            }
             if (mappings.ContainsKey(name)) {
-                return string.Concat(mappings[name], suffix);
+                return mappings[name];
             } else {
-                return string.Concat(prefix, name, suffix);
+                string suffix = new string(name.Reverse().TakeWhile(c => c >= '0' && c <= '9').Reverse().ToArray());
+                if (suffix.Length > 0) {
+                    name = name.Substring(0, name.Length - suffix.Length);
+                }
+                if (mappings.ContainsKey(name)) {
+                    return string.Concat(mappings[name], suffix);
+                } else {
+                    return string.Concat(prefix, name, suffix);
+                }
             }
         }
 
